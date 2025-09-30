@@ -59,8 +59,55 @@ class Esercizio {
         return N+1;
     }
 
-    private static int eliminaElemento(int[] V, int N){
-        return N;
+    private static int inserisciElemenetoOtt(int[] V, int N, int e, int ie){
+     
+        int i = N;
+
+        while(i > ie){
+            V[i] = V[i-1];
+            --i;
+        }
+        V[ie] = e;
+
+        return N+1;
+    }
+
+    private static int eliminaElemento(int[] V, int N, int ie){
+
+        int[] W = new int[N-1];
+        
+        int i = 0;
+
+        while(i < ie){
+            W[i] = V[i];
+            ++i;
+        }
+
+        while(i < N-1){
+            W[i] = V[i+1];
+            ++i;
+        }
+
+        i = 0;
+
+        while(i < N-1){
+            V[i] = W[i];
+            ++i;
+        }
+
+        return N-1;
+    }
+
+    private static int eliminaElementoOtt(int[] V, int N, int ie){
+
+        int i = ie;
+
+        while(i < N-1){
+            V[i] = V[i+1];
+            ++i;
+        }
+
+        return N-1;
     }
 
     private static int ricercaElemento(int[] V, int N, int e){
@@ -97,7 +144,7 @@ class Esercizio {
         int scelta;
         int valore;
         int posizione;
-
+        String tipo;
         do{
 
            scelta = leggiOperazione();
@@ -112,10 +159,34 @@ class Esercizio {
                     }
                 }while(posizione < 0 || posizione >= N);
 
-                N = inserireElemento(V,N,valore,posizione);
+                System.out.print("Inserire tipo di inserimento (Semplice/Ottimizzato): ");
+                tipo = in.nextLine();
+                String sub = tipo.substring(0,1);
+
+                if(sub.equalsIgnoreCase("o")){
+                    N= inserisciElemenetoOtt(V, N, valore, posizione);
+                }else{
+                    N = inserireElemento(V, N, valore, posizione);
+                }
+                
             }
             if(scelta == 2){
-                //N = eliminaElemento(V,N);
+                do{
+                    System.out.print("Inserire la posizione da eliminare: ");
+                    posizione = Integer.parseInt(in.nextLine());
+                    if(posizione < 0 || posizione >= N){
+                        System.out.println("Inserire una posizione valida!");
+                    }   
+                }while(posizione < 0 || posizione >= N);
+
+                System.out.print("Inserire tipo di eliminazione (Semplice/Ottimizzato): ");
+                tipo = in.nextLine();
+                String sub = tipo.substring(0,1);
+                if(sub.equalsIgnoreCase("o")){
+                    N = eliminaElementoOtt(V, N, posizione);
+                }else{
+                    N = eliminaElemento(V, N, posizione);
+                }
             }
             if(scelta == 3){
 
