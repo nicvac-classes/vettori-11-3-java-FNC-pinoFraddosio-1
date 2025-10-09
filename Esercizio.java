@@ -124,7 +124,40 @@ class Esercizio {
     }
 
     private static int eliminaDuplicati(int[] V, int N){
-        return N;
+        int i, j;
+        int Nw = 0;
+        boolean trovato;
+        int[] W = new int[N];
+
+        i = 0;
+
+        while(i < N-1){
+            trovato = false;
+            j = i+1;
+
+            while(j < N && !trovato){
+                if(V[i] == V[j]){
+                    trovato = true;
+                }else{
+                    ++j;
+                }
+            }
+
+            if(!trovato){
+                W[Nw] = V[i];
+                ++Nw;
+            }
+
+            ++i;
+        }
+
+        i = 0;
+        while (i < Nw){
+            V[i] = W[i];
+            ++i;
+        }
+
+        return Nw;
     }
 
     private static void visualizzaVettore(int[] V, int N){
@@ -203,7 +236,7 @@ class Esercizio {
                 }
             }
             if(scelta == 4){
-                //N = eliminaDuplicati(V,n);
+                N = eliminaDuplicati(V,N);
             }
             if(scelta == 5){
                 visualizzaVettore(V,N);
