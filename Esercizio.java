@@ -131,7 +131,7 @@ class Esercizio {
 
         i = 0;
 
-        while(i < N-1){
+        while(i < N){
             trovato = false;
             j = i+1;
 
@@ -158,6 +158,23 @@ class Esercizio {
         }
 
         return Nw;
+    }
+
+    private static int eliminaDuplicatiOtt(int[] V, int N){
+        int i = 0;
+        while(i < N-1) {
+            int j = i + 1;
+            while(j < N){
+                if(V[i] == V[j]){
+                    N = eliminaElementoOtt(V, N, j);
+                }else{
+                    ++j;
+                }
+            }
+            ++i;
+        }
+
+        return N;
     }
 
     private static void visualizzaVettore(int[] V, int N){
@@ -236,7 +253,15 @@ class Esercizio {
                 }
             }
             if(scelta == 4){
-                N = eliminaDuplicati(V,N);
+
+                System.out.print("Inserire tipo di eliminazione (Semplice/Ottimizzato): ");
+                tipo = in.nextLine();
+                String sub = tipo.substring(0,1);
+                if(sub.equalsIgnoreCase("o")){
+                    N = eliminaDuplicatiOtt(V, N);
+                }else{
+                    N = eliminaDuplicati(V, N);
+                }
             }
             if(scelta == 5){
                 visualizzaVettore(V,N);
